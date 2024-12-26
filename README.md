@@ -1,58 +1,53 @@
-# Web Programming HW#2
+# How to Run the Project
 
-## Run the app
+## Prerequisites
+- Node.js (npm)
+- Yarn
 
-Follow the instructions in this section to run the app locally.
+## MongoDB Setup
 
-### 1. setup backend `.env`
+1. Follow this tutorial: [MongoDB Setup Guide](https://youtu.be/O5cmLDVTgAs?si=CNNLtl9m7kX7GbFh) (watch between 2:01:08 and 2:03:00).
+2. Copy the provided MongoDB connection string.
 
-Start by copying the `.env.example` file to `.env`.
+## Backend Setup
 
-```bash
-cd backend
-cp .env.example .env
-```
+1. In the `backend/` directory, create a `.env` file with the following content:
+    ```
+    PORT=8000
+    MONGO_URL=mongodb+srv://... (your connection string)
+    ```
+2. Install the required dependencies:
+    ```console
+    $ cd backend
+    $ yarn
+    ```
+3. Start the backend server:
+    ```console
+    $ yarn start
+    ```
 
-Then, fill in the `MONGO_URL` field in `.env` with your MongoDB connection string and fill in the `PORT` field with the port you want to use. After that, you're `.env` file should look like this. If you don't want to use MongoDB Atlas, you can also run a local MongoDB server with Docker. You can find the instructions [here](https://hub.docker.com/_/mongo).
+## Frontend Setup
 
-```bash
-PORT=8000
-MONGO_URL="mongodb+srv://<username>:<password>@<cluster>.example.mongodb.net/?retryWrites=true&w=majority"
-```
+1. Install the required dependencies:
+    ```console
+    $ cd frontend
+    $ yarn
+    ```
+2. In the `frontend/` directory, create a `.env` file with the following content, ensuring the domain name matches the backend server's domain.
+    ```
+    VITE_API_URL="http://localhost:8000/api"
+    ```
+3. Start the frontend server:
+    ```console
+    $ yarn start
+        ...
+        ➜  Local:   http://localhost:4173/
+        ➜  Network: use --host to expose
+        ➜  press h to show help
+    ```
+4. Open the output URL in your browser to view the web page. In this example, go to http://localhost:4173/.
 
-### 2. setup frontend `.env`
-
-Start by copying the `.env.example` file to `.env`.
-
-```bash
-cd frontend
-cp .env.example .env
-```
-
-Then, fill in the `VITE_API_URL` field in `.env` with the url of your backend server. After that, you're `.env` file should look like this. Note that the port should be the same as the one you set in the backend `.env` file.
-
-```bash
-VITE_API_URL="http://localhost:8000/api"
-```
-
-### 3. start the backend server
-
-```bash
-cd backend
-yarn
-yarn dev
-```
-
-### 4. start the frontend server
-
-```bash
-cd frontend
-yarn
-yarn dev
-```
-
-Visit `http://localhost:5173` to see the app in action. That's it, you're done! If you want to set up the whole project from scratch, you can follow the instructions below.
-
-## 進階功能
-1. 使用者提示：當使用者未輸入資訊或是進行錯誤操作時，給予適當提示。例如使用者新增或編輯清單時，未輸入標題，以彈窗提示「請輸入標題」。
-3. 搜尋：在首頁實作搜尋功能，透過輸入關鍵字尋找相對應之清單。
+## Reference
+This project is the HW2 for the EE3035: Web Programming course, Fall 2023.
+Some of the code has been adapted from the demo available at:
+[https://github.com/ntuee-web-programming/112-1-unit1-trello-clone](https://github.com/ntuee-web-programming/112-1-unit1-trello-clone).
