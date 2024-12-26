@@ -1,22 +1,22 @@
+import SongModel from "../models/song";
+import { genericErrorHandler } from "../utils/errors";
 import type {
   CreateSongPayload,
   CreateSongResponse,
   getSongByIdsResponse,
   SongData,
-  UpdateSongPayload
+  UpdateSongPayload,
 } from "@lib/shared_types";
 import type { Request, Response } from "express";
-import SongModel from "../models/song";
-import { genericErrorHandler } from "../utils/errors";
 
 export const getSongByIds = async (
   req: Request,
-  res: Response<getSongByIdsResponse | { error: string }>
+  res: Response<getSongByIdsResponse | { error: string }>,
 ) => {
   try {
     const { songIds } = req.query;
     const songs = await SongModel.find({ _id: { $in: songIds } });
-    const songData = songs.map((song) => (song as SongData));
+    const songData = songs.map((song) => song as SongData);
     res.json(songData);
   } catch (error) {
     genericErrorHandler(error, res);
@@ -44,7 +44,7 @@ export const updateSong = async (
     const newList = await SongModel.findByIdAndUpdate(
       id,
       {
-        ...req.body
+        ...req.body,
       },
       { new: true },
     );

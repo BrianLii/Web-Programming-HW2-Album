@@ -5,7 +5,6 @@ import mongoose from "mongoose";
 
 import AlbumRoutes from "./routes/albums";
 import SongRoutes from "./routes/songs";
-
 // We use a custom env.ts file to make sure that all the environment variables are in correct types.
 import { env } from "./utils/env";
 

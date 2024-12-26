@@ -1,3 +1,5 @@
+import AlbumModel from "../models/album";
+import { genericErrorHandler } from "../utils/errors";
 import type {
   AlbumData,
   CreateAlbumPayload,
@@ -7,14 +9,15 @@ import type {
   UpdateAlbumPayload,
 } from "@lib/shared_types";
 import type { Request, Response } from "express";
-import AlbumModel from "../models/album";
-import { genericErrorHandler } from "../utils/errors";
 
 // Get all albums
-export const getAlbums = async (_: Request, res: Response<GetAlbumsResponse>) => {
+export const getAlbums = async (
+  _: Request,
+  res: Response<GetAlbumsResponse>,
+) => {
   try {
     const albums = await AlbumModel.find({});
-    const albumsToReturn : GetAlbumsResponse = albums.map((album) => {
+    const albumsToReturn: GetAlbumsResponse = albums.map((album) => {
       return {
         id: album.id,
         name: album.name,
@@ -72,7 +75,7 @@ export const updateAlbum = async (
     const newList = await AlbumModel.findByIdAndUpdate(
       id,
       {
-        ...req.body
+        ...req.body,
       },
       { new: true },
     );
@@ -91,7 +94,7 @@ export const deleteAlbum = async (
 ) => {
   try {
     const { id } = req.params;
-    const deletedAlbum = await AlbumModel.findByIdAndDelete(id)
+    const deletedAlbum = await AlbumModel.findByIdAndDelete(id);
     if (!deletedAlbum) {
       throw new Error("invalid id");
     }

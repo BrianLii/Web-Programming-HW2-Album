@@ -1,4 +1,3 @@
-import express from "express";
 import {
   createAlbum,
   deleteAlbum,
@@ -6,6 +5,7 @@ import {
   getAlbums,
   updateAlbum,
 } from "../controllers/albums";
+import express from "express";
 
 const router = express.Router();
 
