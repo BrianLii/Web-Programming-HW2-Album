@@ -1,12 +1,16 @@
 import type {
   CreateAlbumPayload,
-  CreateAlbumResponse, CreateSongPayload,
+  CreateAlbumResponse,
+  CreateSongPayload,
   CreateSongResponse,
-  DeleteAlbumResponse, GetAlbumResponse,
-  GetAlbumsResponse, UpdateAlbumPayload,
-  UpdateAlbumResponse, UpdateSongPayload,
+  DeleteAlbumResponse,
+  GetAlbumResponse,
+  GetAlbumsResponse,
+  UpdateAlbumPayload,
+  UpdateAlbumResponse,
+  UpdateSongPayload,
   getSongByIdsParam,
-  getSongByIdsResponse
+  getSongByIdsResponse,
 } from "@lib/shared_types";
 import axios from "axios";
 
@@ -24,11 +28,11 @@ export function getAlbums() {
   return client.get<GetAlbumsResponse>("/albums");
 }
 
-export function getAlbum(id : string) {
+export function getAlbum(id: string) {
   return client.get<GetAlbumResponse>(`/albums/${id}`);
 }
 
-export function updateAlbum(id : string, input : UpdateAlbumPayload) {
+export function updateAlbum(id: string, input: UpdateAlbumPayload) {
   return client.put<UpdateAlbumResponse>(`/albums/${id}`, input);
 }
 
@@ -37,13 +41,13 @@ export function deleteAlbum(id: string) {
 }
 
 export function createSong(input: CreateSongPayload) {
-  return client.post<CreateSongResponse>("/songs", input); 
+  return client.post<CreateSongResponse>("/songs", input);
 }
 
-export function getSongByIds(input : getSongByIdsParam) {
-  return client.get<getSongByIdsResponse>(`/songs`, {params : { ...input }});
+export function getSongByIds(input: getSongByIdsParam) {
+  return client.get<getSongByIdsResponse>(`/songs`, { params: { ...input } });
 }
 
-export function updateSong(id : string, input : UpdateSongPayload) {
+export function updateSong(id: string, input: UpdateSongPayload) {
   return client.put<UpdateAlbumResponse>(`/songs/${id}`, input);
 }

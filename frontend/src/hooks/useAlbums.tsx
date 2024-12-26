@@ -1,12 +1,8 @@
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useState,
-} from "react";
+import { createContext, useCallback, useContext, useState } from "react";
+
+import type { GetAlbumsResponse } from "@lib/shared_types";
 
 import { getAlbums } from "@/utils/client";
-import type { GetAlbumsResponse } from "@lib/shared_types";
 
 // context is a way to share data between components without having to pass props down the component tree
 type AlbumContextType = {
@@ -16,25 +12,25 @@ type AlbumContextType = {
 
 const AlbumContext = createContext<AlbumContextType>({
   albums: [],
-  fetchAlbums: async () => { },
+  fetchAlbums: async () => {},
 });
 
 type AlbumProviderProps = {
   children: React.ReactNode;
-}
+};
 
 export function AlbumProvider({ children }: AlbumProviderProps) {
   const [albums, setAlbums] = useState<GetAlbumsResponse>([]);
   const fetchAlbums = useCallback(async () => {
     getAlbums()
       .then((res) => setAlbums(res.data))
-      .catch((error) => console.error('Error fetching albums:', error));
+      .catch((error) => console.error("Error fetching albums:", error));
   }, []);
   return (
     <AlbumContext.Provider
       value={{
         albums,
-        fetchAlbums
+        fetchAlbums,
       }}
     >
       {children}

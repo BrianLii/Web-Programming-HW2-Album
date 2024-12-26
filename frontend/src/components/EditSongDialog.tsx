@@ -1,5 +1,6 @@
 import { useRef } from "react";
 
+import type { SongData } from "@lib/shared_types";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -8,16 +9,20 @@ import DialogTitle from "@mui/material/DialogTitle";
 import TextField from "@mui/material/TextField";
 
 import { updateSong } from "@/utils/client";
-import type { SongData } from "@lib/shared_types";
 
 type EditSongDialogProps = {
-  song: SongData
+  song: SongData;
   fetchAlbum: () => void;
   open: boolean;
   onClose: () => void;
 };
 
-export default function EditSongDialog({ song, fetchAlbum, open, onClose }: EditSongDialogProps) {
+export default function EditSongDialog({
+  song,
+  fetchAlbum,
+  open,
+  onClose,
+}: EditSongDialogProps) {
   const songNameRef = useRef<HTMLInputElement>(null);
   const songSingerRef = useRef<HTMLInputElement>(null);
   const songLinkRef = useRef<HTMLInputElement>(null);
@@ -40,7 +45,7 @@ export default function EditSongDialog({ song, fetchAlbum, open, onClose }: Edit
     updateSong(song.id, {
       name: songNameRef.current?.value ?? "",
       singer: songSingerRef.current?.value ?? "",
-      link: songLinkRef.current?.value ?? ""
+      link: songLinkRef.current?.value ?? "",
     })
       .then(() => fetchAlbum())
       .catch((error) => {

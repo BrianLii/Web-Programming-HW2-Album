@@ -7,8 +7,8 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import TextField from "@mui/material/TextField";
 
-import { createAlbum } from "@/utils/client";
 import useAlbums from "@/hooks/useAlbums";
+import { createAlbum } from "@/utils/client";
 
 type NewAlbumDialogProps = {
   open: boolean;
@@ -34,13 +34,13 @@ export default function NewAlbumDialog({ open, onClose }: NewAlbumDialogProps) {
       return;
     }
 
-    createAlbum({ 
+    createAlbum({
       name: albumNameRef.current?.value ?? "",
       desc: albumDescRef.current?.value ?? "",
     })
-    .then(() => fetchAlbums())
-    .catch((error) => alert(error))
-    .finally(() => onClose());
+      .then(() => fetchAlbums())
+      .catch((error) => alert(error))
+      .finally(() => onClose());
   };
 
   return (

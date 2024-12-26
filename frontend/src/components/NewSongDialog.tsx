@@ -1,5 +1,6 @@
 import { useRef } from "react";
 
+import type { AlbumData } from "@lib/shared_types";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -8,7 +9,6 @@ import DialogTitle from "@mui/material/DialogTitle";
 import TextField from "@mui/material/TextField";
 
 import { createSong, updateAlbum } from "@/utils/client";
-import type { AlbumData } from "@lib/shared_types";
 
 type NewSongDialogProps = {
   album: AlbumData;
@@ -17,7 +17,12 @@ type NewSongDialogProps = {
   onClose: () => void;
 };
 
-export default function NewSongDialog({ album, fetchAlbum, open, onClose }: NewSongDialogProps) {
+export default function NewSongDialog({
+  album,
+  fetchAlbum,
+  open,
+  onClose,
+}: NewSongDialogProps) {
   const songNameRef = useRef<HTMLInputElement>(null);
   const songSingerRef = useRef<HTMLInputElement>(null);
   const songLinkRef = useRef<HTMLInputElement>(null);
@@ -40,11 +45,15 @@ export default function NewSongDialog({ album, fetchAlbum, open, onClose }: NewS
     createSong({
       name: songNameRef.current?.value ?? "",
       singer: songSingerRef.current?.value ?? "",
-      link: songLinkRef.current?.value ?? ""
+      link: songLinkRef.current?.value ?? "",
     })
-      .then((createSongResponse) => updateAlbum(album.id, {
-        songs: album.songs.map((song) => song.id).concat([createSongResponse.data.id])
-      }))
+      .then((createSongResponse) =>
+        updateAlbum(album.id, {
+          songs: album.songs
+            .map((song) => song.id)
+            .concat([createSongResponse.data.id]),
+        }),
+      )
       .then(() => fetchAlbum())
       .catch((error) => {
         alert(`error add new song: ${error}`);

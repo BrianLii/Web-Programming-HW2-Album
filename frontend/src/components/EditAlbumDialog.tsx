@@ -1,5 +1,6 @@
 import { useRef } from "react";
 
+import type { AlbumData } from "@lib/shared_types";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -7,9 +8,8 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import TextField from "@mui/material/TextField";
 
-import { updateAlbum } from "@/utils/client";
 import useAlbums from "@/hooks/useAlbums";
-import type { AlbumData } from "@lib/shared_types";
+import { updateAlbum } from "@/utils/client";
 
 type EditAlbumDialogProps = {
   album: AlbumData;
@@ -18,7 +18,12 @@ type EditAlbumDialogProps = {
   onClose: () => void;
 };
 
-export default function EditAlbumDialog({ album, fetchAlbum, open, onClose }: EditAlbumDialogProps) {
+export default function EditAlbumDialog({
+  album,
+  fetchAlbum,
+  open,
+  onClose,
+}: EditAlbumDialogProps) {
   // using a ref to get the dom element is one way to get the value of a input
   // another way is to use a state variable and update it on change, which can be found in SongDialog.tsx
   const albumNameRef = useRef<HTMLInputElement>(null);
@@ -41,10 +46,10 @@ export default function EditAlbumDialog({ album, fetchAlbum, open, onClose }: Ed
       name: albumNameRef.current?.value ?? "",
       desc: albumDescRef.current?.value ?? "",
     })
-    .then(() => fetchAlbums())
-    .then(() => fetchAlbum())
-    .catch((error) => alert(error))
-    .finally(() => onClose());
+      .then(() => fetchAlbums())
+      .then(() => fetchAlbum())
+      .catch((error) => alert(error))
+      .finally(() => onClose());
   };
 
   return (
